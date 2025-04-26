@@ -26,12 +26,11 @@ A simple Task Manager full-stack application where users can:
 
 ## How to run the project locally
 
-### 1. Clone the repository
+Clone the repository
 
 ```bash
 git clone https://github.com/Ranajit305/Task-Manager.git
 cd Task-Manager
-
 
 Setup the Backend
   cd backend
