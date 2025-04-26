@@ -57,7 +57,7 @@ export const useAuthStore = create((set, get) => ({
         try {
             const res = await axiosUrl.post('/user/logout');
             if (res.data.success) {
-                set({ user: false })
+                set({ user: null })
             }
         } catch (error) {
             console.log(error.response.data.message);
