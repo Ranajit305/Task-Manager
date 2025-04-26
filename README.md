@@ -32,7 +32,7 @@ Clone the repository
 git clone https://github.com/Ranajit305/Task-Manager.git
 cd Task-Manager
 
-Setup the Backend
+## Setup the Backend
   cd backend
   npm install
 
@@ -44,13 +44,11 @@ Create a .env file inside /backend folder:
   
 Run the backend:
   npm run dev
-The server will run at http://localhost:5000
+   The server will run at http://localhost:5000
 
-Setup the Frontend
+## Setup the Frontend
   cd frontend
   npm install
-
-Create a .env file inside /frontend folder:
 
 VITE_BACKEND_URL=http://localhost:5000
 
