@@ -23,7 +23,7 @@ app.use('/api/project', projectRouter);
 app.use('/api/task', taskRouter);
 
 app.use('/', (req, res) => {
-    res.send('API Working');
+    res.send(process.env.FRONTEND_URL);
 })
 
 app.listen(PORT, () => {
