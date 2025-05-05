@@ -14,8 +14,8 @@ export const checkAuth = async (req, res) => {
 
 export const signup = async (req, res) => {
     try {
-        const { name, email, password, country } = req.body;
-        if (!name || !email || !password || !country) {
+        const { name, email, password } = req.body;
+        if (!name || !email || !password) {
             return res.status(400).json({success: false, message: 'Fields Missing'})
         }
 
@@ -39,7 +39,6 @@ export const signup = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            country
         })
         await newUser.save();
         const user = newUser.toObject();
@@ -85,7 +84,7 @@ export const logout = async (req, res) => {
     try {
         res.clearCookie('jwt', {
             httpOnly: true,
-            sameSite: 'none',  
+            sameSite: 'strict',  
             secure: process.env.NODE_ENV !== 'development', 
             expires: new Date(0)
         });        
@@ -93,4 +92,33 @@ export const logout = async (req, res) => {
     } catch (error) {
         res.status(500).json({success: false, message: error.message})
     }
+}
+
+export const searchUsers = async (req, res) => {
+    try {
+        const { q } = req.query;
+        
+        if (!q) {
+          return res.status(400).json({ success: false, message: 'Search query required' });
+        }
+    
+        const users = await User.find({
+            $and: [
+              { 
+                $or: [
+                  { name: { $regex: `^${q}`, $options: 'i' } },
+                  { email: { $regex: `^${q}`, $options: 'i' } }
+                ]
+              },
+              { _id: { $ne: req.user._id } } // Exclude current user
+            ]
+          })
+          .select('name email') 
+          .limit(10)
+          .lean();
+    
+        res.json({ success: true, users });
+      } catch (error) {
+        res.status(500).json({ success: false, message: error.message })
+      }
 }

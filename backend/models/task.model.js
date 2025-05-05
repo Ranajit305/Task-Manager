@@ -12,11 +12,24 @@ const taskSchema = new mongoose.Schema({
     status: {
       type: String,
       enum: ['ongoing', 'paused', 'completed'],
-      default: 'pending'
+      default: 'ongoing'
     },
-    projectId: {
-      type: mongoose.Schema.Types.ObjectId,
+    priority: {
+      type: String,
+      enum: ['High', 'Medium', 'Low'],
       required: true
+    },
+    dueDate: {
+      type: Date,
+      required: true
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     }
 }, { timestamps: true });
 

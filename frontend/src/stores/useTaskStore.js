@@ -5,10 +5,10 @@ export const useTaskStore = create((set, get) => ({
     tasks: [],
     loading: false,
 
-    getTasks: async (projectId) => {
+    getTasks: async () => {
         set({ loading: true });
         try {
-            const res = await axiosUrl.get(`/task/${projectId}`);
+            const res = await axiosUrl.get(`/task`);
             if (res.data.success) {
                 set({ tasks: res.data.tasks });
             }
@@ -19,15 +19,16 @@ export const useTaskStore = create((set, get) => ({
         }
     },
     
-    createTask: async (projectId, title, description) => {
+    createTask: async (title, description, priority, dueDate, assignedTo) => {
         set({ loading: true });
         try {
-            const res = await axiosUrl.post(`/task/${projectId}`, { title, description });
+            const res = await axiosUrl.post(`/task`, { title, description, priority, dueDate, assignedTo });
             if (res.data.success) {
                 set((state) => ({
                     tasks: [...state.tasks, res.data.task]
                 }))
             }
+            
         } catch (error) {
             console.log(error.response.data.message);
         } finally {
@@ -35,15 +36,15 @@ export const useTaskStore = create((set, get) => ({
         }
     },
 
-    updateTask: async (taskId, title, description, status) => {
+    updateTask: async (taskId, title, description, status, priority, dueDate) => {
         set({ loading: true });
         try {
-            const res = await axiosUrl.put(`/task/${taskId}`, { title, description, status });
+            const res = await axiosUrl.put(`/task/${taskId}`, { title, description, status, priority, dueDate });
             if (res.data.success) {
                 set((state) => ({
                     tasks: state.tasks.map((task) =>
                       task._id === taskId
-                        ? { ...task, title, description, status }
+                        ? { ...task, title, description, status, priority, dueDate }
                         : task
                     )
                   }));

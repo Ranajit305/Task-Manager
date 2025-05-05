@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 
 export const useAuthStore = create((set, get) => ({
     user: null,
+    filteredUsers: [],
+    loadingUsers: false,
     loading: false,
 
     checkAuth: async () => {
@@ -20,10 +22,10 @@ export const useAuthStore = create((set, get) => ({
         }
     },
 
-    signup: async (name, email, password, country) => {
+    signup: async (name, email, password) => {
         set({ loading: true });
         try {
-            const res = await axiosUrl.post('/user/signup', {name, email, password, country});
+            const res = await axiosUrl.post('/user/signup', {name, email, password});
             if (res.data.success) {
                 set({ user: res.data.user })
             }
@@ -63,6 +65,20 @@ export const useAuthStore = create((set, get) => ({
             console.log(error.response.data.message);
         } finally {
             set({ userLoading: false });
+        }
+    },
+
+    searchUsers: async (q) => {
+        set({ loadingUsers: true });
+        try {
+            const res = await axiosUrl.get('/user/search', { params: { q } });
+            if (res.data.success) {
+                set({ filteredUsers: res.data.users })
+            }
+        } catch (error) {
+            console.log(error.response.data.message);
+        } finally {
+            set({ loadingUsers: false });
         }
     }
 }))

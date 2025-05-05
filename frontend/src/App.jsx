@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useAuthStore } from './stores/useAuthStore'
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Root from './pages/Root';
-import Home from './pages/Home';
-import Project from './pages/Project';
+import Dashboard from './pages/Dashboard';
+import TaskManagement from './pages/TaskManagement';
 
 const App = () => {
 
@@ -16,9 +16,9 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={!user ? <Root /> : <Navigate to='/home'/>} />
-        <Route path='/home' element={user ? <Home /> : <Navigate to='/'/>} />
-        <Route path='/:projectId' element={user ? <Project /> : <Navigate to='/'/>} />
+        <Route path='/' element={!user ? <Root /> : <Navigate to='/dashboard'/>} />
+        <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to='/'/>} />
+        <Route path='/tasks' element={user ? <TaskManagement /> : <Navigate to='/'/>} />
       </Routes>
     </div>
   )

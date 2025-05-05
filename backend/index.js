@@ -5,7 +5,6 @@ import cors from 'cors'
 
 import { connectDB } from './db/connectDB.js'
 import userRouter from './routes/user.route.js'
-import projectRouter from './routes/project.route.js'
 import taskRouter from './routes/task.route.js'
 
 const app = express();
@@ -19,7 +18,6 @@ app.use(cors({
 }));
 
 app.use('/api/user', userRouter);
-app.use('/api/project', projectRouter);
 app.use('/api/task', taskRouter);
 
 app.use('/', (req, res) => {
