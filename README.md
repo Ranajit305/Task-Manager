@@ -3,13 +3,13 @@
 A simple Task Manager full-stack application where users can:
 
 1. Create Projects
-2. Add Tasks to Projects
+2. Add Tasks
 3. Update Task Status (Ongoing, Paused, Completed)
 4. Delete Tasks
-5. Secure Authentication (Login / Register) with JWT
-6. Logout functionality
-7. Fully working Frontend + Backend
-8. Cookies handled securely (cross-origin with SameSite: 'None')
+5. One user can assign task to another user
+6. Secure Authentication (Login / Register) with JWT
+7. Logout functionality
+8. Fully working Frontend + Backend
 
 ---
 
